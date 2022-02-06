@@ -6,13 +6,13 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const JWT_SECRET = 'verypowerfullString$itis%'
 
-
+//router for /api/auth/createuser
 router.post('/createuser', [
     body('email', 'Enter a valid Email').isEmail(),
     body('name', 'Name shuld be more than 4 char').isLength({ min: 4 }),
     body('password', 'enter a strong Password password shuld be more than 8 char').isLength({ min: 8 })], async (req, res) => {
-        const errors = validationResult(req);
         //checking validation for email , name , password
+        const errors = validationResult(req);
         if (!errors.isEmpty()) {
             return res.status(400).json({ errors: errors.array() });
         }
@@ -41,8 +41,47 @@ router.post('/createuser', [
             res.json({ authToken });
         } catch (error) {
             console.log(error);
-            res.status(500).send("Some error occyred");
+            res.status(500).send("Some error occured");
         }
-    });
+    }
+);
+
+//Router for api/auth/login
+router.post('/login', [
+    body('email', 'Enter a valid email').isEmail(),
+    body('password', 'password cannot be blank').notEmpty()
+], async (req, res) => {
+    //Checking email is valid or not and password is blank or not
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+
+    try {
+        //checking email is alrady exist or not 
+        let user = await User.findOne({ email: req.body.email });
+        if (!user) {
+            return res.status(400).json({ error: "Please enter a valid credentials to login" });
+        }
+
+        //compare password with hassing 
+        const passwordCompare = await bcrypt.compare(req.body.password, user.password);
+        if (!passwordCompare) {
+            return res.status(400).json({ error: "Please enter a valid credentials to login" });
+        }
+
+        //if password and email id matches then send token id 
+        const data = {
+            user: {
+                id: user.id
+            }
+        }
+        const authToken = jwt.sign(data, JWT_SECRET);
+        res.json({ authToken });
+    } catch (error) {
+        res.status(500).send('Some internal server error occured');
+        console.log(error)
+    }
+});
 
 module.exports = router;
