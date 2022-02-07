@@ -66,4 +66,19 @@ router.put('/updatenotes/:id', fetchuser, async (req, res) => {
     }
 });
 
+
+// Router 4: Delete a notes using api/notes/deletenotes loging require
+router.delete('/deletenotes/:id', fetchuser, async (req, res) => {
+    let notes = await Notes.findById(req.params.id);
+
+    //checking note id is valid or not
+    if (!notes) { return res.status(404).send('Not found') }
+
+    //Chacking the user valid or not to delete notes
+    if (notes.user.toString() !== req.user.id) { return res.status(401).send('Not Allowed') }
+
+    //deleteing the notes
+    notes = await Notes.findByIdAndDelete(req.params.id);
+    res.status(200).json({ "Success": "Deleted Note Successfully", notes: notes })
+})
 module.exports = router;
