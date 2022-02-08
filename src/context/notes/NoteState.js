@@ -93,8 +93,13 @@ const NoteState = (props) => {
         setNotes(notes.concat(note));
     }
 
+    //Delete Notes
+    const funcDelete = (id) => {
+        const newNotes = notes.filter((note) => { return note._id !== id });
+        setNotes(newNotes);
+    }
     return (
-        <NoteContext.Provider value={{ notes, funcAddNote }}>
+        <NoteContext.Provider value={{ notes, funcAddNote, funcDelete }}>
             {props.children}
         </NoteContext.Provider >
     )
