@@ -64,13 +64,18 @@ function Notes() {
                         </div>
                         <div className="modal-footer">
                             <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary" onClick={funcSaveCahangeEditNote}>Save changes</button>
+                            <button disabled={notesData.etitle.length < 5 || notesData.edescription.length < 5} type="button" className="btn btn-primary" onClick={funcSaveCahangeEditNote}>Save changes</button>
                         </div>
                     </div>
                 </div>
             </div>
             <div className="row my-3">
                 <h2>Your Notes</h2>
+                <div className="container my-3 mx-1">
+                    <h5>
+                        {notes.length === 0 && 'No Notes For Preview !!'}
+                    </h5>
+                </div>
                 {notes.map((note) => { return <NoteItems key={note._id} notes={note} funcUpdateNote={funcUpdateNote} /> })}
             </div>
         </div>
