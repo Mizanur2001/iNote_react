@@ -22,6 +22,10 @@ function AddNotes() {
                     <input type="text" className="form-control" id="title" placeholder="Your Title length should be more than 3 char" name='title' onChange={funcOnChange} />
                 </div>
                 <div className="mb-3">
+                    <label htmlFor="tag" className="form-label">Tag</label>
+                    <input type="text" className="form-control" id="tag" placeholder="Enter tag here" name='tag' onChange={funcOnChange} />
+                </div>
+                <div className="mb-3">
                     <label htmlFor="description" className="form-label">Enter Description</label>
                     <textarea className="form-control" id="description" name='description' rows="3" onChange={funcOnChange} />
                 </div>
