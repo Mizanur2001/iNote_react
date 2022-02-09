@@ -2,82 +2,24 @@ import React, { useState } from 'react';
 import NoteContext from './noteContext'
 
 const NoteState = (props) => {
-    const noteInitial =
-        [
-            {
-                "_id": "6200ac31fe74746710bd09cf",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "vgvff",
-                "description": "I'''''",
-                "tag": "General",
-                "date": "2022-02-07T05:20:49.859Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac6efe74746710bgd09d1",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "This is Admin",
-                "description": "this message is sending for testion pur>{",
-                "tag": "General",
-                "date": "2022-02-07T05:21:50.722Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac31fe74746710bd09ocf",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "vgvff",
-                "description": "I'''''",
-                "tag": "General",
-                "date": "2022-02-07T05:20:49.859Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac6efe7474671i0bd09d1",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "This is Admin",
-                "description": "this message is sending for testion pur>{",
-                "tag": "General",
-                "date": "2022-02-07T05:21:50.722Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac31fe74746710bd09tcf",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "vgvff",
-                "description": "I'''''",
-                "tag": "General",
-                "date": "2022-02-07T05:20:49.859Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac6efe74746710ubd09d1",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "This is Admin",
-                "description": "this message is sending for testion pur>{",
-                "tag": "General",
-                "date": "2022-02-07T05:21:50.722Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac31fe7474671d0bd09cf",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "vgvff",
-                "description": "I'''''",
-                "tag": "General",
-                "date": "2022-02-07T05:20:49.859Z",
-                "__v": 0
-            },
-            {
-                "_id": "6200ac6efe74746710bd09d1",
-                "user": "61ffc7e4bb1321e17fef7a3a",
-                "title": "This is Admin",
-                "description": "this message is sending for testion pur>{",
-                "tag": "General",
-                "date": "2022-02-07T05:21:50.722Z",
-                "__v": 0
-            },
-        ];
+    const host = "http://localhost:5000"
+    const noteInitial = [];
     const [notes, setNotes] = useState(noteInitial);
+
+    //Get all Notes
+    const funcGetAllNotes = async () => {
+        //api call
+        let URL = `${host}/api/notes/fetchnotes`;
+        const responce = await fetch(URL, {
+            method: 'GET',
+            headers: {
+                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmZmM3ZTRiYjEzMjFlMTdmZWY3YTNhIn0sImlhdCI6MTY0NDI0MjYwMH0.lpqXIRPUgcd7_TlPa8-0fmP3rpimaWRE8LjM6Nk6yWk',
+                'Content-Type': 'application/json'
+            }
+        });
+        let jsonData = await responce.json();
+        setNotes(jsonData);
+    }
 
     //Add a notes 
     const funcAddNote = (notesData) => {
@@ -99,7 +41,7 @@ const NoteState = (props) => {
         setNotes(newNotes);
     }
     return (
-        <NoteContext.Provider value={{ notes, funcAddNote, funcDelete }}>
+        <NoteContext.Provider value={{ notes, funcAddNote, funcDelete, funcGetAllNotes }}>
             {props.children}
         </NoteContext.Provider >
     )
