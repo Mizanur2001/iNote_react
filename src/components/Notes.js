@@ -4,18 +4,20 @@ import NoteItems from './NoteItems'
 
 function Notes() {
     const context = useContext(noteContext);
-    const { notes, funcGetAllNotes } = context;
+    const { notes, funcGetAllNotes, funcEditNote } = context;
     useEffect(() => {
         funcGetAllNotes();
         // eslint-disable-next-line
     }, []);
 
-    const [notesData, setNotesData] = useState({ etitle: "errro", edescription: "error", etag: "Error" });
+    const [notesData, setNotesData] = useState({ id: '', etitle: "errro", edescription: "error", etag: "Error" });
     const ref = useRef(null);
+    const refClose = useRef(null);
 
     const funcUpdateNote = (currentNote) => {
         ref.current.click();
         setNotesData({
+            id: currentNote._id,
             etitle: currentNote.title,
             edescription: currentNote.description,
             etag: currentNote.tag
@@ -25,6 +27,12 @@ function Notes() {
     const funcOnChange = (e) => {
         setNotesData({ ...notesData, [e.target.name]: e.target.value });
     }
+
+    const funcSaveCahangeEditNote = () => {
+        refClose.current.click();
+        funcEditNote(notesData.id, notesData.etitle, notesData.edescription, notesData.etag);
+    }
+
     return (
         <div>
             <button ref={ref} type="button" className="btn btn-primary d-none" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -55,8 +63,8 @@ function Notes() {
                             </form>
                         </div>
                         <div className="modal-footer">
-                            <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button ref={refClose} type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" className="btn btn-primary" onClick={funcSaveCahangeEditNote}>Save changes</button>
                         </div>
                     </div>
                 </div>
