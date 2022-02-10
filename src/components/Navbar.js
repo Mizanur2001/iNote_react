@@ -3,10 +3,10 @@ import { Link, useLocation } from 'react-router-dom';
 
 function Navbar() {
     let location = useLocation();
-    useEffect(() => {}, [location]);
+    useEffect(() => { }, [location]);
     return (
         <div>
-            <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
+            <nav className="navbar navbar-expand-lg navbar-dark bg-dark py-2">
                 <div className="container-fluid">
                     <Link className="navbar-brand" to="/">iNotes</Link>
                     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -22,8 +22,8 @@ function Navbar() {
                             </li>
                         </ul>
                         <form className="d-flex">
-                            <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-                            <button className="btn btn-outline-success" type="submit">Search</button>
+                            <Link className="btn btn-outline-primary mx-1" to="/login" role="button">Login</Link>
+                            <Link className="btn btn-outline-primary mx-1" to="/signup" role="button">SignUp</Link>
                         </form>
                     </div>
                 </div>
