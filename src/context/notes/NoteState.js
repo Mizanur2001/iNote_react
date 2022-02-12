@@ -13,7 +13,7 @@ const NoteState = (props) => {
         const responce = await fetch(URL, {
             method: 'GET',
             headers: {
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmZmM3ZTRiYjEzMjFlMTdmZWY3YTNhIn0sImlhdCI6MTY0NDI0MjYwMH0.lpqXIRPUgcd7_TlPa8-0fmP3rpimaWRE8LjM6Nk6yWk',
+                'authToken': localStorage.getItem('authToken'),
                 'Content-Type': 'application/json'
             }
         });
@@ -31,7 +31,7 @@ const NoteState = (props) => {
         await fetch(URL, {
             method: 'POST',
             headers: {
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmZmM3ZTRiYjEzMjFlMTdmZWY3YTNhIn0sImlhdCI6MTY0NDI0MjYwMH0.lpqXIRPUgcd7_TlPa8-0fmP3rpimaWRE8LjM6Nk6yWk',
+                'authToken': localStorage.getItem('authToken'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ title, description, tag })
@@ -48,7 +48,7 @@ const NoteState = (props) => {
         const responce = await fetch(URL, {
             method: 'DELETE',
             headers: {
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmZmM3ZTRiYjEzMjFlMTdmZWY3YTNhIn0sImlhdCI6MTY0NDI0MjYwMH0.lpqXIRPUgcd7_TlPa8-0fmP3rpimaWRE8LjM6Nk6yWk',
+                'authToken': localStorage.getItem('authToken'),
                 'Content-Type': 'application/json'
             }
         });
@@ -64,7 +64,7 @@ const NoteState = (props) => {
         await fetch(URL, {
             method: 'PUT',
             headers: {
-                'authToken': 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjFmZmM3ZTRiYjEzMjFlMTdmZWY3YTNhIn0sImlhdCI6MTY0NDI0MjYwMH0.lpqXIRPUgcd7_TlPa8-0fmP3rpimaWRE8LjM6Nk6yWk',
+                'authToken': localStorage.getItem('authToken'),
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({ title, description, tag })

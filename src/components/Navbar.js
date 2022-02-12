@@ -2,6 +2,9 @@ import React, { useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
 function Navbar() {
+    const funcLogout = () => {
+        localStorage.removeItem('authToken');
+    }
     let location = useLocation();
     useEffect(() => { }, [location]);
     return (
@@ -21,10 +24,10 @@ function Navbar() {
                                 <Link className={`nav-link ${location.pathname === '/about' ? 'active' : ''}`} to="/about">About</Link>
                             </li>
                         </ul>
-                        <form className="d-flex">
+                        {!localStorage.getItem('authToken') ? <form className="d-flex">
                             <Link className="btn btn-outline-primary mx-1" to="/login" role="button">Login</Link>
                             <Link className="btn btn-outline-primary mx-1" to="/signup" role="button">SignUp</Link>
-                        </form>
+                        </form> : <Link className="btn btn-outline-warning mx-1" to="/login" onClick={funcLogout} role="button">Logout</Link>}
                     </div>
                 </div>
             </nav>

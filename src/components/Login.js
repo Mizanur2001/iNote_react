@@ -31,7 +31,10 @@ function Login(props) {
     }
     return (
         <div>
-            <form className='container my-5 ' onSubmit={funcSubmit}>
+            <div className="container mt-1">
+                <h3>Login to continue with iNotes</h3>
+            </div>
+            <form className='container my-3 ' onSubmit={funcSubmit}>
                 <div className="mb-3">
                     <label htmlFor="exampleInputEmail1" className="form-label">Email address</label>
                     <input type="email" name="email" className="form-control" autoComplete='off' id="exampleInputEmail1" aria-describedby="emailHelp" value={credentials.email} onChange={onChange} />
