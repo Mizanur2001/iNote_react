@@ -2,14 +2,14 @@ import React from 'react';
 import noteContext from '../context/notes/noteContext';
 import { useContext, useState } from 'react';
 
-function AddNotes() {
+function AddNotes(props) {
     const context = useContext(noteContext);
     const { funcAddNote } = context;
     const [notesdata, setNotesdata] = useState({ title: "", description: "", tag: "" });
 
     const funcSubmitNote = (e) => {
         e.preventDefault();
-        funcAddNote(notesdata);
+        funcAddNote(notesdata, props.alert);
         setNotesdata({ title: "", description: "", tag: "" });
     }
 

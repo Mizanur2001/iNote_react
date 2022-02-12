@@ -1,14 +1,14 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 
-function Signup() {
+function Signup(props) {
     const [credentials, setCredentials] = useState({ name: '', email: '', password: '', cpassword: '' });
     const navigate = useNavigate();
 
     const funcOnSubmitData = async (e) => {
         e.preventDefault();
         if (credentials.cpassword !== credentials.password) {
-            return alert('confirm is not natched with the password');
+            return props.alert({ message: 'confirm is not natched with the password', alerts: 'warning' });
         }
 
         const URL = `http://localhost:5000/api/auth/createuser`;
@@ -23,9 +23,10 @@ function Signup() {
         if (responce.status === 200) {
             localStorage.setItem('authToken', json.authToken);
             navigate('/');
+            props.alert({ message: 'Accunt created successfully', alerts: 'success !' });
         }
         else {
-            alert('Enter a valid details');
+            props.alert({ message: 'Enter a valid details', alerts: 'danger !' });
         }
     }
     const onChange = (e) => {

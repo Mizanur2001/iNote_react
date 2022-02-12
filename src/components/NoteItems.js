@@ -9,7 +9,7 @@ function NoteItems(props) {
                 <div className="card-body">
                     <h5 className="card-title">{props.notes.title}</h5>
                     <p className="card-text">{props.notes.description}</p>
-                    <i className="far fa-trash-alt" onClick={() => { context.funcDelete(props.notes._id) }} />
+                    <i className="far fa-trash-alt" onClick={() => { context.funcDelete(props.notes._id, props.alert) }} />
                     <i className="far fa-edit mx-3" onClick={() => { props.funcUpdateNote(props.notes) }} />
                 </div>
             </div>

@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useRef, useState } from 'react'
 import noteContext from '../context/notes/noteContext';
 import NoteItems from './NoteItems'
 
-function Notes() {
+function Notes(props) {
     const context = useContext(noteContext);
     const { notes, funcGetAllNotes, funcEditNote } = context;
     useEffect(() => {
@@ -30,7 +30,7 @@ function Notes() {
 
     const funcSaveCahangeEditNote = () => {
         refClose.current.click();
-        funcEditNote(notesData.id, notesData.etitle, notesData.edescription, notesData.etag);
+        funcEditNote(notesData.id, notesData.etitle, notesData.edescription, notesData.etag, props.alert);
     }
 
     return (
@@ -76,7 +76,7 @@ function Notes() {
                         {notes.length === 0 && 'No Notes For Preview !!'}
                     </h5>
                 </div>
-                {notes.map((note) => { return <NoteItems key={note._id} notes={note} funcUpdateNote={funcUpdateNote} /> })}
+                {notes.map((note) => { return <NoteItems key={note._id} notes={note} funcUpdateNote={funcUpdateNote} alert={props.alert} /> })}
             </div>
         </div>
     )

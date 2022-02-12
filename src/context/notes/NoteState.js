@@ -22,7 +22,7 @@ const NoteState = (props) => {
     }
 
     //Add a notes 
-    const funcAddNote = async (notesData) => {
+    const funcAddNote = async (notesData, alert) => {
         //api call
         let URL = `${host}/api/notes/addnotes`;
         let title = notesData.title;
@@ -39,10 +39,11 @@ const NoteState = (props) => {
 
         //adding the notes into clint site
         funcGetAllNotes();
+        alert({ alerts: 'success !', message: ' Notes added ' });
     }
 
     //Delete Notes
-    const funcDelete = async (id) => {
+    const funcDelete = async (id, alert) => {
         let URL = `${host}/api/notes/deletenotes/${id}`;
         const responce = await fetch(URL, {
             method: 'DELETE',
@@ -54,10 +55,11 @@ const NoteState = (props) => {
         responce.json();
         const newNotes = notes.filter((note) => { return note._id !== id });
         setNotes(newNotes);
+        alert({ alerts: 'success !', message: ' Note Deleted ' });
     }
 
     //edit note
-    const funcEditNote = async (id, title, description, tag) => {
+    const funcEditNote = async (id, title, description, tag, alert) => {
         let URL = `${host}/api/notes/updatenotes/${id}`;
         await fetch(URL, {
             method: 'PUT',
@@ -67,6 +69,7 @@ const NoteState = (props) => {
             },
             body: JSON.stringify({ title, description, tag })
         });
+        alert({ alerts: 'success ! ', message: 'Note Updeded' });
         funcGetAllNotes();
     }
 
